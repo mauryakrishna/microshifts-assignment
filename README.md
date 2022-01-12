@@ -1,5 +1,5 @@
 
-### Development
+### Get Started
 
 To start the project locally, run:
 
@@ -8,15 +8,6 @@ yarn dev
 ```
 
 Open `http://localhost:3000` with your browser to see the result.
-## Showcase
-
-List of websites that started off with Next.js TypeScript Starter:
-
-- [dowhile.io](https://dowhile.io)
-- [graphcms.com](https://graphcms.com)
-- [mobg.com.br](https://mobg.com.br)
-- [nextlevelweek.com](https://nextlevelweek.com)
-- [rocketseat.com.br](https://www.rocketseat.com.br)
 
 ## Documentation
 
