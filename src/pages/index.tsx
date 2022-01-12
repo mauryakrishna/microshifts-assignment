@@ -1,75 +1,51 @@
 import Head from 'next/head';
-import Image from 'next/image';
 
 import styles from '@/styles/Home.module.css';
 
-export default function Home() {
+export async function getStaticProps() {
+  const res = await fetch(
+    `https://inshortsapi.vercel.app/news?category=science`,
+  );
+  const data = await res.json();
+  return { props: { newsList: data.success ? data.data : [] } };
+}
+
+export default function Home(data: any) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>TypeScript starter for Next.js</title>
+        <title>InShorts News</title>
         <meta
           name="description"
-          content="TypeScript starter for Next.js that includes all you need to build amazing apps"
+          content="News sourced from Inshort news api."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{` `}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <p className={styles.description}>This is not an official starter!</p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=typescript-nextjs-starter"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <h1 className={styles.title}>Welcome to InShort news!</h1>
+        <div className={styles.list}>
+          {data.newsList.map((news: any, index: number) => {
+            return (
+              <div key={index} className={styles.card}>
+                <div className={styles.text}>
+                  <h4>{news.title}</h4>
+                  <p>{news.content}</p>
+                </div>
+                <div className={styles.imagediv}>
+                  <img
+                    className={styles.image}
+                    alt={news.title}
+                    src={news.imageUrl}
+                    height="100%"
+                    width="100%"
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=typescript-nextjs-starter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{` `}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 }
