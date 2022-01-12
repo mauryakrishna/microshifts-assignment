@@ -4,6 +4,14 @@
 To start the project locally, run:
 
 ```bash
+cd microshifts-assignment
+```
+
+```bash
+yarn install
+
+```
+```bash
 yarn dev
 ```
 
